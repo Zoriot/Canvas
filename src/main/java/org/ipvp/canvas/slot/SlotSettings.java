@@ -34,9 +34,9 @@ import org.ipvp.canvas.template.StaticItemTemplate;
  */
 public class SlotSettings {
 
-    private ClickOptions clickOptions;
-    private Slot.ClickHandler clickHandler;
-    private ItemStackTemplate itemTemplate;
+    private final ClickOptions clickOptions;
+    private final Slot.ClickHandler clickHandler;
+    private final ItemStackTemplate itemTemplate;
 
     SlotSettings(ClickOptions clickOptions, Slot.ClickHandler clickHandler, ItemStackTemplate itemTemplate) {
         this.clickOptions = clickOptions;
@@ -90,6 +90,7 @@ public class SlotSettings {
         /**
          * @see Slot#setClickOptions(ClickOptions)
          */
+        @SuppressWarnings("unused")
         public Builder clickOptions(ClickOptions clickOptions) {
             this.clickOptions = clickOptions;
             return this;
@@ -98,6 +99,7 @@ public class SlotSettings {
         /**
          * @see Slot#setClickHandler(Slot.ClickHandler)
          */
+        @SuppressWarnings("unused")
         public Builder clickHandler(Slot.ClickHandler clickHandler) {
             this.clickHandler = clickHandler;
             return this;

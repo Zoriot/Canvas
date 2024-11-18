@@ -32,7 +32,7 @@ import java.util.Objects;
 
 public class MenuHolder implements InventoryHolder {
 
-    private Player viewer;
+    private final Player viewer;
     private Menu menu;
     private Inventory inventory;
 

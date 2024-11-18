@@ -44,8 +44,8 @@ import java.util.function.Consumer;
  */
 public class MultiSectionPaginatedMenuBuilder extends AbstractPaginatedMenuBuilder<MultiSectionPaginatedMenuBuilder> {
 
-    private Map<Character, Mask> sectionSlots = new HashMap<>();
-    private Map<Character, List<SlotSettings>> sectionItems = new HashMap<>();
+    private final Map<Character, Mask> sectionSlots = new HashMap<>();
+    private final Map<Character, List<SlotSettings>> sectionItems = new HashMap<>();
 
     private MultiSectionPaginatedMenuBuilder(Menu.Builder<?> pageBuilder) {
         super(pageBuilder);

@@ -43,7 +43,7 @@ import java.util.function.Consumer;
 public class PaginatedMenuBuilder extends AbstractPaginatedMenuBuilder<PaginatedMenuBuilder> {
 
     private Mask slots;
-    private List<SlotSettings> items = new ArrayList<>();
+    private final List<SlotSettings> items = new ArrayList<>();
 
     private PaginatedMenuBuilder(Menu.Builder<?> pageBuilder) {
         super(pageBuilder);

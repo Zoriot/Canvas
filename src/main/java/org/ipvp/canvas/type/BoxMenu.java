@@ -23,6 +23,7 @@
 
 package org.ipvp.canvas.type;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.event.inventory.InventoryType;
 import org.ipvp.canvas.Menu;
 
@@ -36,7 +37,7 @@ import org.ipvp.canvas.Menu;
  */
 public class BoxMenu extends AbstractMenu {
 
-    protected BoxMenu(String title, InventoryType type, Menu menu, boolean redraw) {
+    protected BoxMenu(Component title, InventoryType type, Menu menu, boolean redraw) {
         super(title, type, menu, redraw);
     }
 
@@ -69,7 +70,7 @@ public class BoxMenu extends AbstractMenu {
      */
     public static class Builder extends AbstractMenu.Builder<Builder> {
 
-        private InventoryType type;
+        private final InventoryType type;
 
         Builder(InventoryType type) {
             super(new Dimension(3, 3));

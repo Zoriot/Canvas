@@ -38,13 +38,13 @@ import org.ipvp.canvas.Menu;
 import org.ipvp.canvas.mask.Mask;
 import org.ipvp.canvas.slot.DefaultSlot;
 import org.ipvp.canvas.slot.Slot;
+import org.jetbrains.annotations.NotNull;
 
 /**
- * An abstract class that provides a skeletal implementation of the Menu 
+ * An abstract class that provides a skeletal implementation of the Menu
  * interface.
  */
-public abstract class AbstractMenu implements Menu  {
-
+public abstract class AbstractMenu implements Menu {
     private final Menu parent;
     private final boolean redraw;
     private DefaultSlot[] slots;
@@ -57,22 +57,20 @@ public abstract class AbstractMenu implements Menu  {
     protected int inventorySlots;
     protected InventoryType inventoryType;
 
+    @SuppressWarnings("unused")
     protected AbstractMenu(Component title, int inventorySlots, Menu parent, boolean redraw) {
-        if (title == null) {
-            title = Component.text(InventoryType.CHEST.name());
-        }
+        if (title == null) title = Component.text(InventoryType.CHEST.name());
         this.inventoryTitle = title;
         this.inventorySlots = inventorySlots;
         this.parent = parent;
         this.redraw = redraw;
         this.generateSlots();
     }
-    
+
+    @SuppressWarnings("unused")
     protected AbstractMenu(Component title, InventoryType type, Menu parent, boolean redraw) {
         Objects.requireNonNull(type, "type cannot be null");
-        if (title == null) {
-            title = Component.text(type.name());
-        }
+        if (title == null) title = Component.text(type.name());
         this.inventoryTitle = title;
         this.inventoryType = type;
         this.parent = parent;
@@ -85,7 +83,7 @@ public abstract class AbstractMenu implements Menu  {
      */
     protected void generateSlots() {
         this.slots = new DefaultSlot[getDimensions().getArea()];
-        for (int i = 0 ; i < slots.length ; i++) {
+        for (int i = 0; i < slots.length; i++) {
             this.slots[i] = new DefaultSlot(this, i);
         }
     }
@@ -104,13 +102,12 @@ public abstract class AbstractMenu implements Menu  {
     public void open(Player viewer) {
         InventoryHolder currentInventory =
                 viewer.getOpenInventory().getTopInventory().getHolder();
+        MenuHolder holder;
         if (currentInventory instanceof MenuHolder) {
-            MenuHolder holder = (MenuHolder) currentInventory;
+            holder = (MenuHolder) currentInventory;
             Menu open = holder.getMenu();
 
-            if (open == this) {
-                return;
-            }
+            if (open == this) return;
 
             Inventory inventory;
 
@@ -126,16 +123,15 @@ public abstract class AbstractMenu implements Menu  {
 
             updateInventoryContents(viewer, inventory);
             holder.setMenu(this);
-            holders.add(holder);
         } else {
             // Create new MenuHolder for the player
-            MenuHolder holder = new MenuHolder(viewer, this);
+            holder = new MenuHolder(viewer, this);
             Inventory inventory = createInventory(holder);
             updateInventoryContents(viewer, inventory);
             holder.setInventory(inventory);
             viewer.openInventory(inventory);
-            holders.add(holder);
         }
+        holders.add(holder);
     }
 
     private Inventory createInventory(InventoryHolder holder) {
@@ -182,18 +178,15 @@ public abstract class AbstractMenu implements Menu  {
 
     @Override
     public void update(Player viewer) throws IllegalStateException {
-        if (!isOpen(viewer)) {
-            return;
-        }
+        if (!isOpen(viewer)) return;
 
         InventoryHolder openInventory = viewer.getOpenInventory().getTopInventory().getHolder();
+        assert openInventory != null;
         updateInventoryContents(viewer, openInventory.getInventory());
     }
 
     public void closedByPlayer(Player viewer, boolean triggerCloseHandler) {
-        if (!isOpen(viewer)) {
-            return;
-        }
+        if (!isOpen(viewer)) return;
 
         MenuHolder holder = (MenuHolder)
                 viewer.getOpenInventory().getTopInventory().getHolder();
@@ -233,7 +226,7 @@ public abstract class AbstractMenu implements Menu  {
     }
 
     @Override
-    public Iterator<Slot> iterator() {
+    public @NotNull Iterator<Slot> iterator() {
         return new ArrayIterator<>(slots);
     }
 
@@ -279,7 +272,7 @@ public abstract class AbstractMenu implements Menu  {
     public static abstract class Builder<T extends Builder<T>> implements Menu.Builder<T> {
 
         private final Dimension dimensions;
-        private String title;
+        private Component title;
         private Menu parent;
         private boolean redraw;
 
@@ -293,7 +286,7 @@ public abstract class AbstractMenu implements Menu  {
         }
 
         @Override
-        public T title(String title) {
+        public T title(Component title) {
             this.title = title;
             return (T) this;
         }
@@ -310,7 +303,7 @@ public abstract class AbstractMenu implements Menu  {
             return (T) this;
         }
 
-        public String getTitle() {
+        public Component getTitle() {
             return title;
         }
 

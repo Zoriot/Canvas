@@ -29,6 +29,7 @@ import org.ipvp.canvas.slot.Slot;
 import org.ipvp.canvas.slot.SlotSettings;
 import org.ipvp.canvas.template.ItemStackTemplate;
 import org.ipvp.canvas.template.StaticItemTemplate;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,8 +47,8 @@ import java.util.List;
 public class BinaryMask implements Mask {
 
     private final Menu.Dimension dimension;
-    private List<Integer> mask;
-    private SlotSettings settings;
+    private final List<Integer> mask;
+    private final SlotSettings settings;
 
     protected BinaryMask(Menu.Dimension dimension, List<Integer> mask, SlotSettings settings) {
         this.dimension = dimension;
@@ -97,7 +98,7 @@ public class BinaryMask implements Mask {
     }
 
     @Override
-    public Iterator<Integer> iterator() {
+    public @NotNull Iterator<Integer> iterator() {
         return mask.iterator();
     }
 
@@ -137,9 +138,9 @@ public class BinaryMask implements Mask {
      */
     public static class BinaryMaskBuilder implements Mask.Builder {
 
-        private Menu.Dimension dimensions;
+        private final Menu.Dimension dimensions;
         private int row;
-        private int[][] mask;
+        private final int[][] mask;
         private SlotSettings settings;
 
         protected BinaryMaskBuilder(Menu.Dimension dimensions) {

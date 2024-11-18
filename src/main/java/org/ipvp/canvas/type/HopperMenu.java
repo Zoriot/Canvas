@@ -23,15 +23,17 @@
 
 package org.ipvp.canvas.type;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.event.inventory.InventoryType;
 import org.ipvp.canvas.Menu;
 
 /**
  * A menu backed by a Hopper Inventory.
  */
+@SuppressWarnings("unused")
 public class HopperMenu extends AbstractMenu {
 
-    protected HopperMenu(String title, Menu menu, boolean redraw) {
+    protected HopperMenu(Component title, Menu menu, boolean redraw) {
         super(title, InventoryType.HOPPER, menu, redraw);
     }
 

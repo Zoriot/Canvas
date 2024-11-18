@@ -27,6 +27,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.inventory.InventoryAction;
@@ -47,6 +48,7 @@ public interface Menu extends Iterable<Slot> {
      *
      * <p>Apply to a menu using {@link #setCursorDropHandler(CursorDropHandler)}.
      */
+    @SuppressWarnings("unused")
     CursorDropHandler ALLOW_CURSOR_DROPPING = (p, c) -> c.setResult(Event.Result.ALLOW);
 
     /**
@@ -54,6 +56,7 @@ public interface Menu extends Iterable<Slot> {
      *
      * @return The parent menu
      */
+    @SuppressWarnings("unused")
     Optional<Menu> getParent();
 
     /**
@@ -102,6 +105,7 @@ public interface Menu extends Iterable<Slot> {
      *
      * @see #close(Player)
      */
+    @SuppressWarnings("unused")
     void close();
 
     /**
@@ -117,6 +121,7 @@ public interface Menu extends Iterable<Slot> {
      *
      * @see #update(Player)
      */
+    @SuppressWarnings("unused")
     void update();
 
     /**
@@ -145,6 +150,7 @@ public interface Menu extends Iterable<Slot> {
      * @param mask mask to get slots of
      * @return menu slots affected by mask
      */
+    @SuppressWarnings("unused")
     List<Slot> getSlots(Mask mask);
 
     /**
@@ -167,11 +173,13 @@ public interface Menu extends Iterable<Slot> {
      * @param column menu column
      * @return slot at coordinates
      */
+    @SuppressWarnings("unused")
     Slot getSlot(int row, int column);
 
     /**
      * Clears out the whole Menu
      */
+    @SuppressWarnings("unused")
     void clear();
 
     /**
@@ -179,6 +187,7 @@ public interface Menu extends Iterable<Slot> {
      *
      * @param index The index number to clear
      */
+    @SuppressWarnings("unused")
     void clear(int index);
 
     /**
@@ -200,6 +209,7 @@ public interface Menu extends Iterable<Slot> {
      *
      * @param handler The new close handler
      */
+    @SuppressWarnings("unused")
     void setCloseHandler(CloseHandler handler);
 
     /**
@@ -215,6 +225,7 @@ public interface Menu extends Iterable<Slot> {
      *
      * @param handler drop handler
      */
+    @SuppressWarnings("unused")
     void setCursorDropHandler(CursorDropHandler handler);
 
     /**
@@ -272,7 +283,8 @@ public interface Menu extends Iterable<Slot> {
          * @param title The title to display
          * @return Fluent pattern
          */
-        T title(String title);
+        @SuppressWarnings("unused")
+        T title(Component title);
 
         /**
          * Adds a fallback parent to this Menu
@@ -280,6 +292,7 @@ public interface Menu extends Iterable<Slot> {
          * @param parent The fallback GUI
          * @return Fluent pattern
          */
+        @SuppressWarnings("unused")
         T parent(Menu parent);
 
         /**
@@ -289,6 +302,7 @@ public interface Menu extends Iterable<Slot> {
          * @return Fluent pattern
          * @see #isRedraw()
          */
+        @SuppressWarnings("unused")
         T redraw(boolean redraw);
 
         /**

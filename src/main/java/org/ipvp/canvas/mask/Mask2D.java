@@ -37,7 +37,7 @@ import org.ipvp.canvas.Menu;
 public class Mask2D implements Mask {
 
     private final Menu.Dimension dimension;
-    private List<Integer> mask;
+    private final List<Integer> mask;
 
     Mask2D(Menu.Dimension dimension, List<Integer> mask) {
         this.dimension = dimension;
@@ -130,11 +130,11 @@ public class Mask2D implements Mask {
      */
     public static class Builder implements Mask.Builder {
 
-        private Menu.Dimension dimensions;
+        private final Menu.Dimension dimensions;
         private int currentLine;
-        private int rows;
-        private int cols;
-        private int[][] mask;
+        private final int rows;
+        private final int cols;
+        private final int[][] mask;
         
         public Builder(Menu.Dimension dimensions) {
             this.dimensions = dimensions;

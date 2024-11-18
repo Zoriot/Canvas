@@ -70,6 +70,7 @@ public abstract class AbstractPaginatedMenuBuilder<T extends AbstractPaginatedMe
      * @param newMenuModifier modifier
      * @return fluent pattern
      */
+    @SuppressWarnings("UnusedReturnValue")
     public T newMenuModifier(Consumer<Menu> newMenuModifier) {
         if (newMenuModifier == null) {
             throw new IllegalArgumentException("Menu modifier cannot be null");
@@ -83,6 +84,7 @@ public abstract class AbstractPaginatedMenuBuilder<T extends AbstractPaginatedMe
      * @param newMenuModifiers a collection of modifiers
      * @return fluent pattern
      */
+    @SuppressWarnings("unused")
     public T newMenuModifiers(Collection<Consumer<Menu>> newMenuModifiers) {
         newMenuModifiers.forEach(this::newMenuModifier);
         return (T) this;
@@ -125,6 +127,7 @@ public abstract class AbstractPaginatedMenuBuilder<T extends AbstractPaginatedMe
      * @param previousButtonSlot slot mask
      * @return fluent pattern
      */
+    @SuppressWarnings("unused")
     public T previousButtonSlot(Mask previousButtonSlot) {
         return previousButtonSlot(indexFromMask(previousButtonSlot));
     }
@@ -157,6 +160,7 @@ public abstract class AbstractPaginatedMenuBuilder<T extends AbstractPaginatedMe
      * @param nextButtonSlot slot mask
      * @return fluent pattern
      */
+    @SuppressWarnings("unused")
     public T nextButtonSlot(Mask nextButtonSlot) {
         return nextButtonSlot(indexFromMask(nextButtonSlot));
     }
@@ -175,6 +179,7 @@ public abstract class AbstractPaginatedMenuBuilder<T extends AbstractPaginatedMe
      *
      * @return previous page button empty icon
      */
+    @SuppressWarnings("unused")
     public ItemStackTemplate getPreviousButton() {
         return previousButton;
     }
@@ -185,6 +190,7 @@ public abstract class AbstractPaginatedMenuBuilder<T extends AbstractPaginatedMe
      * @param item icon
      * @return fluent pattern
      */
+    @SuppressWarnings("unused")
     public T previousButton(ItemStack item) {
         return previousButton(new StaticItemTemplate(item));
     }
@@ -216,6 +222,7 @@ public abstract class AbstractPaginatedMenuBuilder<T extends AbstractPaginatedMe
      * @param item icon
      * @return fluent pattern
      */
+    @SuppressWarnings("unused")
     public T previousButtonEmpty(ItemStack item) {
         return previousButtonEmpty(new StaticItemTemplate(item));
     }
@@ -236,6 +243,7 @@ public abstract class AbstractPaginatedMenuBuilder<T extends AbstractPaginatedMe
      *
      * @return next page button empty icon
      */
+    @SuppressWarnings("unused")
     public ItemStackTemplate getNextButton() {
         return nextButton;
     }
@@ -246,6 +254,7 @@ public abstract class AbstractPaginatedMenuBuilder<T extends AbstractPaginatedMe
      * @param item icon
      * @return fluent pattern
      */
+    @SuppressWarnings("unused")
     public T nextButton(ItemStack item) {
         return nextButton(new StaticItemTemplate(item));
     }
@@ -277,6 +286,7 @@ public abstract class AbstractPaginatedMenuBuilder<T extends AbstractPaginatedMe
      * @param item icon
      * @return fluent pattern
      */
+    @SuppressWarnings("unused")
     public T nextButtonEmpty(ItemStack item) {
         return nextButtonEmpty(new StaticItemTemplate(item));
     }

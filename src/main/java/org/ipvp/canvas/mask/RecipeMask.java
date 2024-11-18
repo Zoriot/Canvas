@@ -30,6 +30,7 @@ import org.ipvp.canvas.slot.Slot;
 import org.ipvp.canvas.slot.SlotSettings;
 import org.ipvp.canvas.template.ItemStackTemplate;
 import org.ipvp.canvas.template.StaticItemTemplate;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -55,11 +56,12 @@ import java.util.*;
  * followed by 3 green stained glass items followed by 3 blue
  * stained glass items.
  */
+@SuppressWarnings("unused")
 public class RecipeMask implements Mask {
 
     private final Menu.Dimension dimension;
-    private Map<Integer, Character> mask;
-    private Map<Character, SlotSettings> settings;
+    private final Map<Integer, Character> mask;
+    private final Map<Character, SlotSettings> settings;
 
     protected RecipeMask(Menu.Dimension dimension, Map<Integer, Character> mask, Map<Character, SlotSettings> settings) {
         this.dimension = dimension;
@@ -112,7 +114,7 @@ public class RecipeMask implements Mask {
     }
 
     @Override
-    public Iterator<Integer> iterator() {
+    public @NotNull Iterator<Integer> iterator() {
         return mask.keySet().iterator();
     }
 
@@ -152,10 +154,10 @@ public class RecipeMask implements Mask {
      */
     public static class RecipeMaskBuilder implements Builder {
 
-        private Menu.Dimension dimensions;
+        private final Menu.Dimension dimensions;
         private int row;
-        private char[][] mask;
-        private Map<Character, SlotSettings> settings = new HashMap<>();
+        private final char[][] mask;
+        private final Map<Character, SlotSettings> settings = new HashMap<>();
 
         protected RecipeMaskBuilder(Menu.Dimension dimensions) {
             this.dimensions = dimensions;
