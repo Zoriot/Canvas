@@ -128,7 +128,6 @@ public class ClickInformation {
             case PLACE_ONE:
             case SWAP_WITH_CURSOR:
             case HOTBAR_SWAP:
-            case HOTBAR_MOVE_AND_READD: // functions the same as HOTBAR_SWAP when click is in top inventory
                 return true;
             case MOVE_TO_OTHER_INVENTORY:
                 return handle.getView().getBottomInventory() == clicked;
@@ -155,7 +154,6 @@ public class ClickInformation {
            InventoryClickEvent clickEvent = ((InventoryClickEvent) handle);
            switch (clickEvent.getAction()) {
                case HOTBAR_SWAP:
-               case HOTBAR_MOVE_AND_READD:
                    int hotbarSlot = clickEvent.getHotbarButton();
                    return clickEvent.getView().getBottomInventory().getItem(hotbarSlot);
                case MOVE_TO_OTHER_INVENTORY:
@@ -186,7 +184,6 @@ public class ClickInformation {
             case MOVE_TO_OTHER_INVENTORY:
             case SWAP_WITH_CURSOR:
             case HOTBAR_SWAP:
-            case HOTBAR_MOVE_AND_READD:
                 return getAddingItem().getAmount();
             default:
                 return -1;
@@ -205,7 +202,6 @@ public class ClickInformation {
             case SWAP_WITH_CURSOR:
                 return true;
             case MOVE_TO_OTHER_INVENTORY:
-            case HOTBAR_MOVE_AND_READD:
             case HOTBAR_SWAP:
                 return handle.getView().getTopInventory() == clicked;
             default:
@@ -253,7 +249,6 @@ public class ClickInformation {
             case MOVE_TO_OTHER_INVENTORY:
             case SWAP_WITH_CURSOR:
             case HOTBAR_SWAP:
-            case HOTBAR_MOVE_AND_READD:
                 return getRawItem().getAmount();
             default:
                 return -1;

@@ -26,6 +26,7 @@ package org.ipvp.canvas.type;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
@@ -44,21 +45,21 @@ import org.ipvp.canvas.slot.Slot;
  */
 public abstract class AbstractMenu implements Menu  {
 
-    private Menu parent;
-    private boolean redraw;
+    private final Menu parent;
+    private final boolean redraw;
     private DefaultSlot[] slots;
     private CloseHandler handler;
     private CursorDropHandler cursorDropHandler;
     private final Set<MenuHolder> holders = new HashSet<>();
 
     // Bukkit Inventory information
-    protected String inventoryTitle;
+    protected Component inventoryTitle;
     protected int inventorySlots;
     protected InventoryType inventoryType;
 
-    protected AbstractMenu(String title, int inventorySlots, Menu parent, boolean redraw) {
+    protected AbstractMenu(Component title, int inventorySlots, Menu parent, boolean redraw) {
         if (title == null) {
-            title = InventoryType.CHEST.getDefaultTitle();
+            title = Component.text(InventoryType.CHEST.name());
         }
         this.inventoryTitle = title;
         this.inventorySlots = inventorySlots;
@@ -67,10 +68,10 @@ public abstract class AbstractMenu implements Menu  {
         this.generateSlots();
     }
     
-    protected AbstractMenu(String title, InventoryType type, Menu parent, boolean redraw) {
+    protected AbstractMenu(Component title, InventoryType type, Menu parent, boolean redraw) {
         Objects.requireNonNull(type, "type cannot be null");
         if (title == null) {
-            title = type.getDefaultTitle();
+            title = Component.text(type.name());
         }
         this.inventoryTitle = title;
         this.inventoryType = type;

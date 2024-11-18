@@ -136,7 +136,6 @@ public final class MenuFunctionListener implements Listener {
                 case PICKUP_HALF:
                 case PICKUP_ONE:
                 case PICKUP_SOME:
-                case HOTBAR_MOVE_AND_READD:
                     // Fall through
                 
                 // Cases where the item might be being inserted into a Slot in the Menu
