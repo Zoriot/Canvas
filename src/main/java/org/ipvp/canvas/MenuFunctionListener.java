@@ -25,6 +25,7 @@ package org.ipvp.canvas;
 
 import java.util.Map;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -55,11 +56,14 @@ import org.ipvp.canvas.type.MenuHolder;
  */
 public final class MenuFunctionListener implements Listener {
 
+
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
     public void handleGuiDrag(InventoryDragEvent event) {
         InventoryView view = event.getView();
         Inventory top = view.getTopInventory();
-        
+
+        Bukkit.getLogger().warning("Drag event: " + event.getType() + " in " + top.getHolder());
+
         // We are only processing drags that affect menus
         if (top.getHolder() instanceof MenuHolder) {
             Menu menu = ((MenuHolder) top.getHolder()).getMenu();
@@ -69,10 +73,13 @@ public final class MenuFunctionListener implements Listener {
             // event through to the menu as a slot click
             Map<Integer, ItemStack> newItems = event.getNewItems();
 
+            Bukkit.getLogger().warning("New items: " + newItems);
+
             for (Map.Entry<Integer, ItemStack> entry : newItems.entrySet()) {
                 int index = entry.getKey();
                 ItemStack item = entry.getValue();
                 if (index < top.getSize()) {
+                    Bukkit.getLogger().warning("Clicking slot " + index + " with " + item);
                     InventoryAction action = item.getAmount() > 1 ? InventoryAction.PLACE_SOME : InventoryAction.PLACE_ONE;
                     passClickToSlot(event, action, clickType, top, menu, index, event.getNewItems().get(index));
 
@@ -91,18 +98,21 @@ public final class MenuFunctionListener implements Listener {
         InventoryView view = event.getView();
         Inventory top = view.getTopInventory();
 
+        Bukkit.getLogger().warning("Click event: " + event.getAction() + " in " + top.getHolder());
+
         // We are only processing clicks taking place in the view of a menu
         if (top.getHolder() instanceof MenuHolder) {
             Menu menu = ((MenuHolder) top.getHolder()).getMenu();
             Inventory clicked = event.getClickedInventory();
             InventoryAction action = event.getAction();
-            
+            Bukkit.getLogger().warning("Action: " + action + " Clicked: " + clicked);
             // Need to find the target slot
             switch (action) {
                 // Simply exit if we don't know what happened. This typically occurs when 
                 // the player clicks the area outside the inventory screen.
                 case UNKNOWN:
                 case NOTHING:
+                    Bukkit.getLogger().warning("Unknown action: " + action);
                     break;
                 
                 // We handle all events where the player is attempting to drop an item from the 
@@ -111,6 +121,7 @@ public final class MenuFunctionListener implements Listener {
                 // the safe side.
                 case DROP_ALL_CURSOR:
                 case DROP_ONE_CURSOR:
+                    Bukkit.getLogger().warning("Drop cursor: " + action);
                     event.setResult(Event.Result.DENY);
                     if (menu.getCursorDropHandler().isPresent()) {
                         CursorDropInformation dropInformation = new CursorDropInformation(action, event.getClick(),
@@ -125,6 +136,7 @@ public final class MenuFunctionListener implements Listener {
                 // We also disallow collecting to cursor as this has a more complicated behavior
                 // than we are willing to process. 
                 case COLLECT_TO_CURSOR:
+                    Bukkit.getLogger().warning("Collect to cursor: " + action);
                     event.setResult(Event.Result.DENY);
                     event.setCancelled(true);
                     return;
@@ -151,6 +163,7 @@ public final class MenuFunctionListener implements Listener {
                     // First we need to verify that the player is clicking inside the menu
                     // and not on the bottom
                     if (clicked == top) {
+                        Bukkit.getLogger().warning("Top inventory clicked: " + action);
                         // Send the information to the slot
                         passClickToSlot(event, menu, event.getSlot());
                     }
@@ -160,6 +173,7 @@ public final class MenuFunctionListener implements Listener {
                 // can go both ways, and if it is an insertion we we must find the slot(s) 
                 // that are being affected and pass information to all of them. 
                 case MOVE_TO_OTHER_INVENTORY:
+                    Bukkit.getLogger().warning("Move to other inventory: " + action);
                     // If the clicked inventory is the top inventory we have an easy job
                     // that is identical to the handling in the other click types.
                     if (clicked == top) {
@@ -221,6 +235,7 @@ public final class MenuFunctionListener implements Listener {
     
     // Passes an inventory click event to a menu at a given slot
     private void passClickToSlot(InventoryClickEvent event, Menu menu, int slotIndex) {
+        Bukkit.getLogger().warning("Passing click to slot: " + slotIndex);
         passClickToSlot(event, event.getAction(), event.getClick(), event.getClickedInventory(), menu, slotIndex);
     }
     
@@ -233,12 +248,14 @@ public final class MenuFunctionListener implements Listener {
     // Handles events where a slot was clicked inside an inventory
     private void passClickToSlot(InventoryInteractEvent handle, InventoryAction inventoryAction, ClickType clickType,
                                  Inventory clicked, Menu menu, int slotIndex, ItemStack addingItem) {
+        Bukkit.getLogger().warning("Passing click to slot: " + slotIndex + " with " + addingItem);
         // Fetch the slot that was clicked and process the information here
         Slot slot = menu.getSlot(slotIndex);
         ClickOptions options = slot.getClickOptions();
 
         // Check the options of the slot and set the result if the click is not allowed
         if (!options.isAllowedClickType(clickType) || !options.isAllowedAction(inventoryAction)) {
+            Bukkit.getLogger().warning("Click not allowed: " + clickType + " " + inventoryAction);
             handle.setResult(Event.Result.DENY);
         }
 
@@ -247,9 +264,10 @@ public final class MenuFunctionListener implements Listener {
 
         // Process the click information for the event if the slot has a click handler
         if (slot.getClickHandler().isPresent()) {
+            Bukkit.getLogger().warning("Click handler present: " + slot.getClickHandler().get());
             slot.getClickHandler().get().click((Player) handle.getWhoClicked(), clickInformation);
         }
-
+        Bukkit.getLogger().warning("Click result: " + clickInformation.getResult());
         // Complete the handling of the event by setting the result of the click
         handle.setResult(clickInformation.getResult());
     }
